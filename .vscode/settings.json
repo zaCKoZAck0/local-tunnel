@@ -1,0 +1,12 @@
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.sortImports": "always",
+        "source.fixAll.eslint": "always"
+    },
+    "eslint.validate": ["typescript"],
+    "eslint.format.enable": true,
+    "editor.rulers": [100],
+    "editor.autoIndent": "advanced"
+}
