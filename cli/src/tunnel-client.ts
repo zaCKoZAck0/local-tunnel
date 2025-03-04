@@ -4,7 +4,7 @@ import WebSocket from 'ws'
 interface TunnelOptions {
     serverUrl: string
     localPort: number
-    localHost?: string
+    host?: string
     subdomain?: string
 }
 
@@ -19,7 +19,7 @@ export class TunnelClient {
 
     constructor(options: TunnelOptions) {
         this.options = {
-            localHost: 'localhost',
+            host: 'localhost',
             ...options,
         }
     }
@@ -101,7 +101,7 @@ export class TunnelClient {
             // Forward request to local service
             const response = await axios({
                 method: method?.toLowerCase() || 'get',
-                url: `http://${this.options.localHost}:${this.options.localPort}${path}`,
+                url: `http://${this.options.host}:${this.options.localPort}${path}`,
                 headers: this.filterHeaders(headers),
                 data: body,
                 validateStatus: () => true, // Accept any status code

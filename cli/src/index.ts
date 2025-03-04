@@ -5,8 +5,8 @@ import { TunnelClient } from './tunnel-client'
 
 const config = {
     serverUrl: 'ws://localhost:8000',
-    localPort: '8000',
-    localHost: 'localhost',
+    localPort: '0',
+    host: 'localhost',
 }
 
 // Setup CLI
@@ -17,15 +17,14 @@ program
     .description('Create a tunnel to expose your local service to the internet')
     .version('1.0.0')
     .option('-p, --port <number>', 'Local port to forward', config.localPort)
-    .option('-h, --host <hostname>', 'Local host to forward', config.localHost)
+    .option('-h, --host <hostname>', 'Host to forward', config.host)
     .option('-s, --server <url>', 'Tunnel server URL', config.serverUrl)
     .option('-d, --subdomain <name>', 'Custom subdomain to use')
-    .option('--save', 'Save configuration as default')
     .action(async (options) => {
         const client = new TunnelClient({
             serverUrl: options.server,
             localPort: options.port,
-            localHost: options.host,
+            host: options.host,
             subdomain: options.subdomain,
         })
 
