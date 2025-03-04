@@ -1,47 +1,13 @@
 #!/usr/bin/env node
 import chalk from 'chalk'
 import { Command } from 'commander'
-import fs from 'fs'
-import os from 'os'
-import path from 'path'
 import { TunnelClient } from './tunnel-client'
 
-// Simple configuration management
-const configPath = path.join(os.homedir(), '.tunnel-cli-config.json')
-const defaultConfig = {
+const config = {
     serverUrl: 'ws://localhost:8000',
     localPort: '8000',
     localHost: 'localhost',
 }
-
-// Function to load configuration
-function loadConfig() {
-    try {
-        if (fs.existsSync(configPath)) {
-            const configData = fs.readFileSync(configPath, 'utf8')
-            return JSON.parse(configData)
-        }
-    } catch (error) {
-        console.error(
-            chalk.yellow('Warning: Could not load config file, using defaults')
-        )
-    }
-    return defaultConfig
-}
-
-// Function to save configuration
-function saveConfig(config: any) {
-    try {
-        fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
-        return true
-    } catch (error) {
-        console.error(chalk.yellow('Warning: Could not save config file'))
-        return false
-    }
-}
-
-// Load current config
-const currentConfig = loadConfig()
 
 // Setup CLI
 const program = new Command()
@@ -50,34 +16,12 @@ program
     .name('tunnel-cli')
     .description('Create a tunnel to expose your local service to the internet')
     .version('1.0.0')
-    .option(
-        '-p, --port <number>',
-        'Local port to forward',
-        currentConfig.localPort
-    )
-    .option(
-        '-h, --host <hostname>',
-        'Local host to forward',
-        currentConfig.localHost
-    )
-    .option('-s, --server <url>', 'Tunnel server URL', currentConfig.serverUrl)
+    .option('-p, --port <number>', 'Local port to forward', config.localPort)
+    .option('-h, --host <hostname>', 'Local host to forward', config.localHost)
+    .option('-s, --server <url>', 'Tunnel server URL', config.serverUrl)
     .option('-d, --subdomain <name>', 'Custom subdomain to use')
     .option('--save', 'Save configuration as default')
     .action(async (options) => {
-        // Save configuration if requested
-        if (options.save) {
-            const newConfig = {
-                ...currentConfig,
-                serverUrl: options.server,
-                localPort: options.port,
-                localHost: options.host,
-            }
-
-            if (saveConfig(newConfig)) {
-                console.log(chalk.green('✓ Configuration saved'))
-            }
-        }
-
         const client = new TunnelClient({
             serverUrl: options.server,
             localPort: options.port,
