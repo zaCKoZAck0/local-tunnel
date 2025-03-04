@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start:server": "ts-node src/server/index.ts",
-    "start:client": "ts-node src/client/index.ts"
+    "start:server": "ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,31 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "start:client": "ts-node src/index.ts",
+    "build": "tsc --build"
+  },
+  "bin": {
+    "local-tunnel": "./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/ws": "^8.18.0",
+    "axios": "^1.8.1",
+    "chalk": "^4.1.2",
+    "commander": "^13.1.0",
+    "conf": "^13.1.0",
+    "http-proxy": "^1.18.1",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.1"
+  }
+}
