@@ -1,13 +1,8 @@
 #!/usr/bin/env node
 import chalk from 'chalk'
 import { Command } from 'commander'
+import { config } from './lib/config'
 import { TunnelClient } from './tunnel-client'
-
-const config = {
-    serverUrl: 'ws://localhost:8000',
-    localPort: '0',
-    host: 'localhost',
-}
 
 // Setup CLI
 const program = new Command()
